@@ -12,9 +12,9 @@ namespace c4_model_design
 
         static void Banking()
         {
-            const long workspaceId = 70071;
-            const string apiKey = "580817e9-d080-4821-9e8b-b4df84cf69c9";
-            const string apiSecret = "0a5b9278-529a-4e4d-a61c-e8570d4a2463";
+            const long workspaceId = 0;
+            const string apiKey = "";
+            const string apiSecret = "";
 
             StructurizrClient structurizrClient = new StructurizrClient(apiKey, apiSecret);
             Workspace workspace = new Workspace("Grocy aplicacion de venta de insumos", "venta de insumos con desperfectos superficiales a menor precio");
@@ -50,7 +50,7 @@ namespace c4_model_design
             Styles styles = viewSet.Configuration.Styles;
             styles.Add(new ElementStyle("Ciudadano") { Background = "#0a60ff", Color = "#ffffff", Shape = Shape.Person });
             styles.Add(new ElementStyle("Grocy") { Background = "#008f39", Color = "#ffffff", Shape = Shape.RoundedBox });
-            styles.Add(new ElementStyle("delivery") { Background = "#00A719", Color = "#ffffff", Shape = Shape.RoundedBox });
+            styles.Add(new ElementStyle("delivery") { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
             styles.Add(new ElementStyle("payment") { Background = "#00A719", Color = "#ffffff", Shape = Shape.RoundedBox });
 
             
@@ -61,14 +61,14 @@ namespace c4_model_design
             Container apiRest = GrocySystem.AddContainer("API Rest", "API Rest", "NodeJS (Vuejs) port 3000");
             Container database = GrocySystem.AddContainer("Database", "", "MySQL");
 
-            Container checkoutProcessContext = GrocySystem.AddContainer("Localize to puntos de Carga", "Bounded Context para revisar si el pago a sido efectuado", "NodeJS (NestJS)");
-            Container paymentProcessContext = GrocySystem.AddContainer("calculate charge for ride", "Bounded Context para realizar el pago", "NodeJS (NestJS)");
-            Container orderDeliveryContext = GrocySystem.AddContainer("calculate offers", "Bounded Context para planificar el delivery", "NodeJS (NestJS)");
-            Container offersContext = GrocySystem.AddContainer("time of max client", "Bounded Context para administrar las ofertas", "NodeJS (NestJS)");
-            Container orderFullfillmentContext = GrocySystem.AddContainer("monitor of net", "Bounded Context para cumpliento o satisfaccion de pedidos", "NodeJS (NestJS)");
-            Container addProductContext = GrocySystem.AddContainer("float reserve", "Bounded Context para agregar productos al carrito de compras", "NodeJS (NestJS)");
-            Container purchaceRecordContext = GrocySystem.AddContainer("localize vehicle", "Bounded Context para realizar el registro de compras", "NodeJS (NestJS)");
-            Container userRegisterContext = GrocySystem.AddContainer("Weather Channel", "Bounded Context para el registro de usuarios", "NodeJS (NestJS)");
+            Container checkoutProcessContext = GrocySystem.AddContainer("Checkout Process Context", "Bounded Context para revisar si el pago a sido efectuado", "NodeJS (NestJS)");
+            Container paymentProcessContext = GrocySystem.AddContainer("Payment Process Context", "Bounded Context para realizar el pago", "NodeJS (NestJS)");
+            Container orderDeliveryContext = GrocySystem.AddContainer("Order Delivery Context", "Bounded Context para planificar el delivery", "NodeJS (NestJS)");
+            Container offersContext = GrocySystem.AddContainer("Offers Context", "Bounded Context para administrar las ofertas", "NodeJS (NestJS)");
+            Container orderFulfillmentContext = GrocySystem.AddContainer("Order Fulfillment Context", "Bounded Context para cumpliento o satisfaccion de pedidos", "NodeJS (NestJS)");
+            Container addProductContext = GrocySystem.AddContainer("Add Product Context", "Bounded Context para agregar productos al carrito de compras", "NodeJS (NestJS)");
+            Container purchaseRecordContext = GrocySystem.AddContainer("Purchase Record Context", "Bounded Context para realizar el registro de compras", "NodeJS (NestJS)");
+            Container userRegisterContext = GrocySystem.AddContainer("User Register Context", "Bounded Context para el registro de usuarios", "NodeJS (NestJS)");
             
 
             Consumer.Uses(mobileApplication, "Consulta");
@@ -85,18 +85,18 @@ namespace c4_model_design
             apiRest.Uses(paymentProcessContext, "API Request", "JSON/HTTPS");
             apiRest.Uses(orderDeliveryContext, "API Request", "JSON/HTTPS");
             apiRest.Uses(offersContext, "API Request", "JSON/HTTPS");
-            apiRest.Uses(orderFullfillmentContext, "API Request", "JSON/HTTPS");
+            apiRest.Uses(orderFulfillmentContext, "API Request", "JSON/HTTPS");
             apiRest.Uses(addProductContext, "API Request", "JSON/HTTPS");
-            apiRest.Uses(purchaceRecordContext, "API Request", "JSON/HTTPS");
+            apiRest.Uses(purchaseRecordContext, "API Request", "JSON/HTTPS");
             apiRest.Uses(userRegisterContext, "API Request", "JSON/HTTPS");
 
             checkoutProcessContext.Uses(database, "QUERY", "JDBC");
             paymentProcessContext.Uses(database, "QUERY", "JDBC");
             orderDeliveryContext.Uses(database, "QUERY", "JDBC");
             offersContext.Uses(database, "QUERY", "JDBC");
-            orderFullfillmentContext.Uses(database, "QUERY", "JDBC");
+            orderFulfillmentContext.Uses(database, "QUERY", "JDBC");
             addProductContext.Uses(database, "QUERY", "JDBC");
-            purchaceRecordContext.Uses(database, "QUERY", "JDBC");
+            purchaseRecordContext.Uses(database, "QUERY", "JDBC");
             userRegisterContext.Uses(database, "QUERY", "JDBC");
 
             checkoutProcessContext.Uses(PaymentSystem, "API Request", "JSON/HTTPS");
@@ -113,9 +113,9 @@ namespace c4_model_design
             paymentProcessContext.AddTags("component");
             orderDeliveryContext.AddTags("component");
             offersContext.AddTags("component");
-            orderFullfillmentContext.AddTags("component");
+            orderFulfillmentContext.AddTags("component");
             addProductContext.AddTags("component");
-            purchaceRecordContext.AddTags("component");
+            purchaseRecordContext.AddTags("component");
             userRegisterContext.AddTags("component");
 
             styles.Add(new ElementStyle("MobileApp") { Background = "#9d33d6", Color = "#ffffff", Shape = Shape.MobileDevicePortrait, Icon = "" });
