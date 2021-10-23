@@ -12,9 +12,9 @@ namespace c4_model_design
 
         static void Banking()
         {
-            const long workspaceId = 0;
-            const string apiKey = "";
-            const string apiSecret = "";
+            const long workspaceId = 70071;
+            const string apiKey = "580817e9-d080-4821-9e8b-b4df84cf69c9";
+            const string apiSecret = "0a5b9278-529a-4e4d-a61c-e8570d4a2463";
 
             StructurizrClient structurizrClient = new StructurizrClient(apiKey, apiSecret);
             Workspace workspace = new Workspace("Grocy aplicacion de venta de insumos", "venta de insumos con desperfectos superficiales a menor precio");
@@ -219,16 +219,14 @@ namespace c4_model_design
             Component addProductController = addProductContext.AddComponent("Add Product Controller", "REST API endpoints de control al agregar productos", "NodeJS (NestJS) REST Controller");
             Component addProductApplicationService = addProductContext.AddComponent("Add Product Application Service", "Provee métodos para el control al agregar productos, pertenece a la capa Application de DDD", "NestJS Component");
             Component shoppingCartRepository = addProductContext.AddComponent("Shopping Cart Repository", "Información del carrito de compras", "NestJS Component");
-            Component registryRepository = addProductContext.AddComponent("Registry Repository", "Información del registro de nuevos productos", "NestJS Component");
-            Component userRepository = addProductContext.AddComponent("User Repository", "Información de los usuarios", "NestJS Component");
+            Component productRepository = addProductContext.AddComponent("Registry Repository", "Información del registro de nuevos productos", "NestJS Component");
             
             // Tags
             domainLayer3.AddTags("DomainLayer3");
             addProductController.AddTags("AddProductController");
             addProductApplicationService.AddTags("AddProductApplicationService");
             shoppingCartRepository.AddTags("ShoppingCartRepository");
-            registryRepository.AddTags("RegistryRepository");
-            userRepository.AddTags("UserRepository");
+            productRepository.AddTags("RegistryRepository");
 
             styles.Add(new ElementStyle("DomainLayer3") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("AddProductController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
@@ -241,11 +239,9 @@ namespace c4_model_design
             addProductController.Uses(addProductApplicationService, "Invoca métodos de control al agregar productos");
             addProductApplicationService.Uses(domainLayer3, "Usa", "");
             addProductApplicationService.Uses(shoppingCartRepository, "", "JDBC");
-            addProductApplicationService.Uses(registryRepository, "", "JDBC");
-            addProductApplicationService.Uses(userRepository, "", "JDBC");
+            addProductApplicationService.Uses(productRepository, "", "JDBC");
             shoppingCartRepository.Uses(database, "", "JDBC");
-            registryRepository.Uses(database, "", "JDBC");
-            userRepository.Uses(database, "", "JDBC");
+            productRepository.Uses(database, "", "JDBC");
             
             ComponentView componentView3 = viewSet.CreateComponentView(addProductContext, "Components3", "Component Diagram");
             componentView3.PaperSize = PaperSize.A4_Landscape;
