@@ -260,7 +260,6 @@ namespace c4_model_design
             Component paymentController = paymentProcessContext.AddComponent("Payment Controller", "REST API endpoints del proceso de pago.", "NodeJS (NestJS) REST Controller");
             Component paymentApplicationService = paymentProcessContext.AddComponent("Payment Application Service", "Provee métodos para el proceso de pago, pertenece a la capa Application de DDD", "NestJS Component");
             Component orderRepository = paymentProcessContext.AddComponent("Order Repository", "Información de la orden a pagar", "NestJS Component");
-            Component dataRepository = paymentProcessContext.AddComponent("Data Repository", "Información del usuario que realiza el pago", "NestJS Component");
             Component purchaseRepository = paymentProcessContext.AddComponent("Purchase Repository", "Información del método de pago", "NestJS Component");
 
             // Tags
@@ -268,24 +267,20 @@ namespace c4_model_design
             paymentController.AddTags("PaymentController");
             paymentApplicationService.AddTags("PaymentApplicationService");
             orderRepository.AddTags("OrderRepository");
-            dataRepository.AddTags("DataRepository");
             purchaseRepository.AddTags("PurchaseRepository");
 
             styles.Add(new ElementStyle("DomainLayer4") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("PaymentController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("PaymentApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("OrderRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            styles.Add(new ElementStyle("DataRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("PurchaseRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
 
             apiRest.Uses(paymentController, "", "JSON/HTTPS");
             paymentController.Uses(paymentApplicationService, "Invoca métodos de proceso de pago");
             paymentApplicationService.Uses(domainLayer4, "Usa", "");
             paymentApplicationService.Uses(orderRepository, "", "JDBC");
-            paymentApplicationService.Uses(dataRepository, "", "JDBC");
             paymentApplicationService.Uses(purchaseRepository, "", "JDBC");
             orderRepository.Uses(database, "", "JDBC");
-            dataRepository.Uses(database, "", "JDBC");
             purchaseRepository.Uses(database, "", "JDBC");
             purchaseRepository.Uses(PaymentSystem, "", "JSON/HTTPS");
 
