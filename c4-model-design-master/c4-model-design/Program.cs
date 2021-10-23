@@ -219,7 +219,7 @@ namespace c4_model_design
             Component addProductController = addProductContext.AddComponent("Add Product Controller", "REST API endpoints de control al agregar productos", "NodeJS (NestJS) REST Controller");
             Component addProductApplicationService = addProductContext.AddComponent("Add Product Application Service", "Provee métodos para el control al agregar productos, pertenece a la capa Application de DDD", "NestJS Component");
             Component shoppingCartRepository = addProductContext.AddComponent("Shopping Cart Repository", "Información del carrito de compras", "NestJS Component");
-            Component productRepository = addProductContext.AddComponent("Registry Repository", "Información del registro de nuevos productos", "NestJS Component");
+            Component productRepository = addProductContext.AddComponent("Product Repository", "Información del registro de nuevos productos", "NestJS Component");
             
             // Tags
             domainLayer3.AddTags("DomainLayer3");
